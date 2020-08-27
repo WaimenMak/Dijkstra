@@ -1,7 +1,7 @@
 function [dis trace, distance] = Dijsktra(G,origin,destination)
     vertex_set = [origin];
-    inf = 100; %¾­¹ıµãµÄ¼¯ºÏÖĞ¼ÓÈëÆğÊ¼µã£¬²»ÏàÁ¬±ßÉèÖÃ½Ï´óÊı
-    dis_set = inf*ones(1,size(G,1));    %¼ÇÂ¼Æğµãµ½¾­¹ıµÄÃ¿Ò»µãµÄ×î¶Ì¾àÀë
+    inf = 100; %ç»è¿‡ç‚¹çš„é›†åˆä¸­åŠ å…¥èµ·å§‹ç‚¹ï¼Œä¸ç›¸è¿è¾¹è®¾ç½®è¾ƒå¤§æ•°
+    dis_set = inf*ones(1,size(G,1));    %è®°å½•èµ·ç‚¹åˆ°ç»è¿‡çš„æ¯ä¸€ç‚¹çš„æœ€çŸ­è·ç¦»
     
     
     dis_set(1) = 0;
@@ -11,7 +11,7 @@ function [dis trace, distance] = Dijsktra(G,origin,destination)
         for i = 1:length(vertex_set)
             neighbor = find(G(vertex_set(i),:) ~= inf);
             for j = 1:length(neighbor)
-                if G(vertex_set(i),neighbor(j)) + dis_set(vertex_set(i))< min && ~ismember(neighbor(j),vertex_set)    %ÁÚ¾ÓµãÊÇ·ñÒÑ¾­Ì½Ë÷¹ı
+                if G(vertex_set(i),neighbor(j)) + dis_set(vertex_set(i))< min && ~ismember(neighbor(j),vertex_set)    %é‚»å±…ç‚¹æ˜¯å¦å·²ç»æ¢ç´¢è¿‡
                     min = G(vertex_set(i),neighbor(j)) + dis_set(vertex_set(i));
                     k = neighbor(j); m = vertex_set(i);
                     
@@ -21,7 +21,7 @@ function [dis trace, distance] = Dijsktra(G,origin,destination)
         end
         vertex_set = [vertex_set, k];
         dis_set(k) = min;
-        index = find(vertex_set == m);
+        index = find(vertex_set == m);     %æ­¤å¤„è¾“å‡ºæœ€ä¼˜è·¯å¾„æœ‰ç‚¹é—®é¢˜ï¼Œè§£å†³æ–¹æ³•æ˜¯ç›´æ¥æŠŠvertex_setè¿›è¡Œæ’åºï¼Œæ’åºåçš„vertex_setå°±æ˜¯åŸç‚¹åˆ°æ¯ä¸ªç‚¹æœ€ä¼˜è·¯å¾„
         origin = [vertex_set(1:index), k];
     end
     trace = origin;
